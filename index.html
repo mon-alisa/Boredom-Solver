@@ -7,150 +7,503 @@
     <title>Boredom Solver</title>
 
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #fff5fa;
-            color: #333;
-            text-align: center;
+        * {
+            box-sizing: border-box;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 70px 20px;
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #faf8f7;
+            color: #252323;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            width: 100%;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #e28aae;
+        }
+
+        .nav-button {
+            background: white;
+            border: 1px solid #e8e3e3;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .sparkle {
+            font-size: 28px;
+            margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 55px;
-            margin-bottom: 10px;
-            color: #d96b9b;
+            font-size: clamp(55px, 10vw, 105px);
+            line-height: 0.9;
+            letter-spacing: -6px;
+            margin: 0;
+            font-weight: 900;
         }
 
-        .tagline {
-            font-size: 22px;
-            margin-bottom: 50px;
+        .pink {
+            color: #e28aae;
         }
 
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        .subtitle {
+            font-size: 21px;
+            color: #666;
+            margin: 30px auto;
+            max-width: 520px;
+            line-height: 1.5;
         }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            margin: 12px 0;
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #252323;
+            color: white;
             border: none;
-            border-radius: 15px;
-            background: #ffe0ed;
-            color: #333;
+            padding: 17px 28px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        /* FEATURE SECTION */
+
+        .features {
+            padding: 70px 7%;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 35px;
+            letter-spacing: -1.5px;
+            margin-bottom: 45px;
+        }
+
+        .feature-grid {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 28px 22px;
+            border: 1px solid #eee8e8;
+            border-radius: 22px;
+            background: #fffafa;
+            transition: 0.25s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin: 0 0 8px;
             font-size: 18px;
+        }
+
+        .feature p {
+            margin: 0;
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* QUIZ */
+
+        .quiz-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #faf8f7;
+        }
+
+        .quiz {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .progress {
+            height: 5px;
+            background: #e8e3e3;
+            border-radius: 10px;
+            margin-bottom: 35px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 50%;
+            background: #e28aae;
+            transition: 0.3s;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 30px;
+            padding: 45px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+        }
+
+        .question-number {
+            color: #e28aae;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .question-card h2 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-top: 0;
+        }
+
+        .answer {
+            width: 100%;
+            text-align: left;
+            padding: 17px 20px;
+            margin: 9px 0;
+            background: #faf8f7;
+            border: 1px solid #eee8e8;
+            border-radius: 15px;
+            font-size: 16px;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        button:hover {
-            background: #f6b8d1;
-            transform: translateY(-2px);
+        .answer:hover {
+            border-color: #e28aae;
+            background: #fff4f8;
+            transform: translateX(4px);
         }
+
+        /* RESULTS */
+
+        .results {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .results h2 {
+            font-size: 45px;
+            letter-spacing: -2px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 28px;
+            margin: 15px 0;
+            border-radius: 22px;
+            border: 1px solid #eee8e8;
+            text-align: left;
+        }
+
+        .result-card h3 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .result-card p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .try-again {
+            margin-top: 20px;
+            background: #252323;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* HIDDEN */
 
         .hidden {
             display: none;
         }
 
-        #result {
-            font-size: 22px;
-            line-height: 1.6;
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            .question-card {
+                padding: 30px 22px;
+            }
+
+            .question-card h2 {
+                font-size: 26px;
+            }
         }
 
-        .restart {
-            background: #d96b9b;
-            color: white;
+        @media (max-width: 450px) {
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- NAVIGATION -->
 
-        <h1>✨ Boredom Solver</h1>
+    <nav>
+        <div class="logo">
+            Boredom<span>Solver</span>
+        </div>
 
-        <p class="tagline">
-            You're bored. Let's fix that.
-        </p>
+        <button class="nav-button" onclick="startQuiz()">
+            Find something
+        </button>
+    </nav>
 
-        <!-- QUESTION 1 -->
-        <div class="card" id="question1">
 
-            <h2>What kind of mood are you in?</h2>
+    <!-- HOMEPAGE -->
 
-            <button onclick="nextQuestion('productive')">
-                🧠 I want to be productive
-            </button>
+    <section class="hero" id="home">
 
-            <button onclick="nextQuestion('creative')">
-                🎨 I want to be creative
-            </button>
+        <div class="hero-content">
 
-            <button onclick="nextQuestion('fun')">
-                🎮 I just want something fun
-            </button>
+            <div class="sparkle">✦</div>
 
-            <button onclick="nextQuestion('social')">
-                👯 I want something social
-            </button>
+            <h1>
+                Bored?<br>
+                <span class="pink">We've got you.</span>
+            </h1>
 
-            <button onclick="nextQuestion('relax')">
-                😴 I want to relax
+            <p class="subtitle">
+                Tell us what you're feeling, what you're into,
+                and how much time you have. We'll find something
+                worth doing.
+            </p>
+
+            <button class="start-button" onclick="startQuiz()">
+                Find something to do
+                <span>→</span>
             </button>
 
         </div>
 
+    </section>
 
-        <!-- QUESTION 2 -->
-        <div class="card hidden" id="question2">
 
-            <h2>How much energy do you have?</h2>
+    <!-- FEATURES -->
 
-            <button onclick="showResult('high')">
-                ⚡ A LOT
-            </button>
+    <section class="features">
 
-            <button onclick="showResult('medium')">
-                🙂 Some
-            </button>
+        <h2 class="section-title">
+            Something for every kind of bored.
+        </h2>
 
-            <button onclick="showResult('low')">
-                🛋️ Very little
-            </button>
+        <div class="feature-grid">
+
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Create</h3>
+                <p>Projects, art, photography and creative challenges.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>Learn</h3>
+                <p>Discover skills, topics and things you've never tried.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>Be productive</h3>
+                <p>Turn your free time into something useful.</p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <h3>Have fun</h3>
+                <p>Games, challenges and random things to try.</p>
+            </div>
 
         </div>
 
+    </section>
 
-        <!-- RESULT -->
-        <div class="card hidden" id="resultCard">
 
-            <h2>✨ Your Boredom Solver Result</h2>
+    <!-- QUIZ -->
 
-            <p id="result"></p>
+    <section class="quiz-section hidden" id="quizSection">
 
-            <button class="restart" onclick="restart()">
-                🔄 Try Again
-            </button>
+        <div class="quiz">
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- QUESTION 1 -->
+
+            <div class="question-card" id="question1">
+
+                <div class="question-number">
+                    QUESTION 1 OF 2
+                </div>
+
+                <h2>What kind of mood are you in?</h2>
+
+                <button class="answer" onclick="nextQuestion('productive')">
+                    🧠 I want to be productive
+                </button>
+
+                <button class="answer" onclick="nextQuestion('creative')">
+                    🎨 I want to be creative
+                </button>
+
+                <button class="answer" onclick="nextQuestion('fun')">
+                    🎮 I just want something fun
+                </button>
+
+                <button class="answer" onclick="nextQuestion('social')">
+                    👯 I want something social
+                </button>
+
+                <button class="answer" onclick="nextQuestion('relax')">
+                    😴 I want to relax
+                </button>
+
+            </div>
+
+
+            <!-- QUESTION 2 -->
+
+            <div class="question-card hidden" id="question2">
+
+                <div class="question-number">
+                    QUESTION 2 OF 2
+                </div>
+
+                <h2>How much energy do you have?</h2>
+
+                <button class="answer" onclick="showResults('high')">
+                    ⚡ A lot
+                </button>
+
+                <button class="answer" onclick="showResults('medium')">
+                    🙂 Some
+                </button>
+
+                <button class="answer" onclick="showResults('low')">
+                    🛋️ Very little
+                </button>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div class="results hidden" id="results">
+
+                <div class="question-number">
+                    YOUR RESULTS
+                </div>
+
+                <h2>Here's what you could do.</h2>
+
+                <div id="resultContent"></div>
+
+                <button class="try-again" onclick="restart()">
+                    ↻ Try again
+                </button>
+
+            </div>
 
         </div>
 
-    </div>
+    </section>
 
 
     <script>
 
         let mood = "";
+
+        function startQuiz() {
+
+            document.getElementById("home").classList.add("hidden");
+
+            document.querySelector(".features").classList.add("hidden");
+
+            document.getElementById("quizSection").classList.remove("hidden");
+
+            window.scrollTo(0, 0);
+        }
+
 
         function nextQuestion(choice) {
 
@@ -159,70 +512,121 @@
             document.getElementById("question1").classList.add("hidden");
 
             document.getElementById("question2").classList.remove("hidden");
+
+            document.getElementById("progressBar").style.width = "100%";
         }
 
 
-        function showResult(energy) {
+        function showResults(energy) {
 
             document.getElementById("question2").classList.add("hidden");
 
-            document.getElementById("resultCard").classList.remove("hidden");
+            document.getElementById("results").classList.remove("hidden");
 
-            let result = "";
+            let results = "";
 
-            if (mood === "productive" && energy === "high") {
+            if (mood === "productive") {
 
-                result = "🚀 Start a personal project! You could build a website, start a small business, learn a new skill, or work on something that could become an extracurricular.";
+                results = `
+                    <div class="result-card">
+                        <h3>🚀 Start a personal project</h3>
+                        <p>
+                            Build something that you're genuinely interested in.
+                            Try creating a website, starting a small business,
+                            learning a skill, or creating a project you could
+                            eventually turn into an extracurricular.
+                        </p>
+                    </div>
 
+                    <div class="result-card">
+                        <h3>📚 Learn something useful</h3>
+                        <p>
+                            Pick a topic you've always wanted to understand and
+                            spend the next 30 minutes learning about it.
+                        </p>
+                    </div>
+                `;
+
+            } else if (mood === "creative") {
+
+                results = `
+                    <div class="result-card">
+                        <h3>📸 Try a photography challenge</h3>
+                        <p>
+                            Take 10 photos around you based on one theme.
+                            Try reflections, shadows, colours, or textures.
+                        </p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>🎨 Make something from scratch</h3>
+                        <p>
+                            Design a poster, mood board, website, room layout,
+                            playlist cover, or anything else you can imagine.
+                        </p>
+                    </div>
+                `;
+
+            } else if (mood === "fun") {
+
+                results = `
+                    <div class="result-card">
+                        <h3>🎮 Try something you've never played</h3>
+                        <p>
+                            Pick a game, challenge, or activity completely
+                            outside your normal routine.
+                        </p>
+                    </div>
+
+                    <div class="result-card">
+                        <h3>🎲 Random challenge</h3>
+                        <p>
+                            Give yourself 30 minutes to learn a completely
+                            random skill.
+                        </p>
+                    </div>
+                `;
+
+            } else if (mood === "social") {
+
+                results = `
+                    <div class="result-card">
+                        <h3>👯 Make plans</h3>
+                        <p>
+                            Text a friend and make a spontaneous plan.
+                            Get food, go shopping, play a game, or explore
+                            somewhere you've never been.
+                        </p>
+                    </div>
+                `;
+
+            } else {
+
+                results = `
+                    <div class="result-card">
+                        <h3>🌸 Give yourself a break</h3>
+                        <p>
+                            Read a book, listen to music, watch a comfort show,
+                            journal, take a shower, or simply relax without
+                            feeling guilty about it.
+                        </p>
+                    </div>
+                `;
             }
 
-            else if (mood === "productive" && energy === "medium") {
-
-                result = "📚 Learn something new! Try learning about investing, psychology, photography, coding, or another topic you've always wondered about.";
-
-            }
-
-            else if (mood === "productive" && energy === "low") {
-
-                result = "📝 Do a tiny productive task. Organize your photos, clean your desk, make a to-do list, or plan something you've been putting off.";
-
-            }
-
-            else if (mood === "creative") {
-
-                result = "🎨 Make something! Try photography, drawing, designing a website, making a mood board, writing a story, or creating something completely new.";
-
-            }
-
-            else if (mood === "fun") {
-
-                result = "🎮 Time for fun! Try a new game, make a playlist, watch a movie you've never seen, try a random internet challenge, or learn a weird skill.";
-
-            }
-
-            else if (mood === "social") {
-
-                result = "👯 Do something with someone! Call a friend, go shopping, grab food, play a game together, or plan a spontaneous outing.";
-
-            }
-
-            else if (mood === "relax") {
-
-                result = "🌸 You deserve a break. Read a book, listen to music, take a shower, watch your comfort show, journal, or simply do nothing for a while.";
-
-            }
-
-            document.getElementById("result").innerHTML = result;
+            document.getElementById("resultContent").innerHTML = results;
         }
 
 
         function restart() {
 
-            document.getElementById("resultCard").classList.add("hidden");
+            mood = "";
+
+            document.getElementById("results").classList.add("hidden");
 
             document.getElementById("question1").classList.remove("hidden");
 
-            mood = "";
+            document.getElementById("progressBar").style.width = "50%";
         }
 
     </script>
