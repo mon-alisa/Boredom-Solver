@@ -1,3 +1,4 @@
+console.log("Boredom Solver loaded");
 const questions = [
 
     {
@@ -362,23 +363,44 @@ function showResults() {
     document.getElementById("results")
         .classList.remove("hidden");
 
-
-    const rankedActivities =
-        activities
-            .map(activity => ({
-                ...activity,
-                score: calculateScore(activity)
-            }))
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 5);
-
-
     const resultContent =
         document.getElementById("resultContent");
 
     resultContent.innerHTML = "";
 
 
+    // Make sure our activity database exists
+    if (typeof activities === "undefined" || activities.length === 0) {
+
+        resultContent.innerHTML = `
+            <div class="result-card">
+                <h3>⚠️ Something went wrong</h3>
+                <p>
+                    Boredom Solver couldn't load the activity database.
+                    Please refresh the page and try again.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    // Calculate a score for every activity
+    const rankedActivities = activities
+        .map(activity => {
+
+            return {
+                ...activity,
+                score: calculateScore(activity)
+            };
+
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+
+
+    // Create the result cards
     rankedActivities.forEach((activity, index) => {
 
         const card =
@@ -390,9 +412,15 @@ function showResults() {
         const tags =
             activity.interests
                 .slice(0, 4)
-                .map(tag =>
-                    `<span class="tag">${tag}</span>`
-                )
+                .map(tag => {
+
+                    return `
+                        <span class="tag">
+                            ${tag}
+                        </span>
+                    `;
+
+                })
                 .join("");
 
 
