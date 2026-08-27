@@ -673,6 +673,64 @@ function renderResults(results) {
 
         card.innerHTML = `
 
+    <div class="result-top">
+
+        <div class="match">
+            ${activity.score}% MATCH
+        </div>
+
+        <h3>
+            ${index + 1}. ${activity.title}
+        </h3>
+
+    </div>
+
+    <p class="activity-description">
+        ${activity.description}
+    </p>
+
+    <div class="match-reason">
+
+        <strong>💡 Why this matches you</strong>
+
+        <p>
+            ${reason}
+        </p>
+
+    </div>
+
+    <div class="activity-details">
+
+        <span class="detail">
+            ⏱️ ${activity.duration || "Flexible"}
+        </span>
+
+        <span class="detail">
+            💰 ${activity.costLabel || "Free"}
+        </span>
+
+        <span class="detail">
+            👤 ${activity.socialLabel || "Flexible"}
+        </span>
+
+        <span class="detail">
+            🔥 ${activity.difficulty || "Medium"}
+        </span>
+
+        ${
+            activity.future
+            ? `<span class="detail">🎓 Future value</span>`
+            : ""
+        }
+
+    </div>
+
+    <div class="tags">
+        ${tags}
+    </div>
+
+`;
+
             <div class="match">
                 ${activity.score}% MATCH
             </div>
