@@ -2,7 +2,7 @@ const activities = [
 
     {
         title: "Start a personal project",
-        description: "Build something you're genuinely interested in. It could become a portfolio piece, extracurricular, or just something you're proud of.",
+        description: "Build something you're genuinely interested in. It could become a portfolio piece, extracurricular, or something you're proud of.",
         interests: ["business", "technology", "creative", "learning"],
         moods: ["productive", "creative"],
         energy: ["medium", "high"],
@@ -12,7 +12,8 @@ const activities = [
         cost: ["free"],
         effort: ["medium", "high"],
         goals: ["learning", "productive_goal", "future", "extracurricular"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -27,7 +28,8 @@ const activities = [
         cost: ["free"],
         effort: ["low", "medium"],
         goals: ["fun_goal", "learning", "productive_goal"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -42,7 +44,8 @@ const activities = [
         cost: ["free"],
         effort: ["low", "medium"],
         goals: ["learning", "productive_goal", "future"],
-        future: true
+        future: true,
+        unexpected: true
     },
 
     {
@@ -57,7 +60,8 @@ const activities = [
         cost: ["free", "cheap"],
         effort: ["low", "medium"],
         goals: ["fun_goal", "learning", "relax_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -72,7 +76,8 @@ const activities = [
         cost: ["cheap", "money"],
         effort: ["medium"],
         goals: ["fun_goal", "learning"],
-        future: false
+        future: false,
+        unexpected: true
     },
 
     {
@@ -87,7 +92,8 @@ const activities = [
         cost: ["free"],
         effort: ["low", "medium"],
         goals: ["learning", "productive_goal", "future"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -102,7 +108,8 @@ const activities = [
         cost: ["free"],
         effort: ["low"],
         goals: ["fun_goal", "relax_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -117,7 +124,8 @@ const activities = [
         cost: ["free"],
         effort: ["medium", "high"],
         goals: ["future", "extracurricular", "productive_goal"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -132,7 +140,8 @@ const activities = [
         cost: ["free", "cheap"],
         effort: ["medium", "high"],
         goals: ["money_goal", "future", "extracurricular", "productive_goal"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -147,7 +156,8 @@ const activities = [
         cost: ["free", "cheap"],
         effort: ["low"],
         goals: ["fun_goal", "relax_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -162,7 +172,8 @@ const activities = [
         cost: ["cheap", "money"],
         effort: ["medium"],
         goals: ["fun_goal", "learning"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -177,7 +188,8 @@ const activities = [
         cost: ["free", "cheap"],
         effort: ["low", "medium"],
         goals: ["future", "productive_goal", "relax_goal"],
-        future: true
+        future: true,
+        unexpected: false
     },
 
     {
@@ -192,7 +204,8 @@ const activities = [
         cost: ["free"],
         effort: ["low", "medium"],
         goals: ["fun_goal", "learning", "relax_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -207,7 +220,8 @@ const activities = [
         cost: ["free"],
         effort: ["low", "medium"],
         goals: ["learning", "future", "productive_goal"],
-        future: true
+        future: true,
+        unexpected: true
     },
 
     {
@@ -222,7 +236,8 @@ const activities = [
         cost: ["free", "cheap"],
         effort: ["medium", "high"],
         goals: ["productive_goal", "fun_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -237,7 +252,8 @@ const activities = [
         cost: ["free"],
         effort: ["low"],
         goals: ["relax_goal", "future", "productive_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -252,7 +268,8 @@ const activities = [
         cost: ["free"],
         effort: ["medium", "high"],
         goals: ["fun_goal", "productive_goal"],
-        future: false
+        future: false,
+        unexpected: false
     },
 
     {
@@ -267,7 +284,56 @@ const activities = [
         cost: ["free"],
         effort: ["medium", "high"],
         goals: ["future", "extracurricular", "learning", "productive_goal"],
-        future: true
+        future: true,
+        unexpected: false
+    },
+
+    {
+        title: "Make a random Wikipedia adventure",
+        description: "Start with a random topic and follow interesting links until you discover something completely unexpected.",
+        interests: ["learning", "history", "science", "anything"],
+        moods: ["fun", "creative"],
+        energy: ["low", "medium"],
+        time: ["15min", "30min", "1hour"],
+        social: ["alone"],
+        location: ["home", "anywhere"],
+        cost: ["free"],
+        effort: ["low"],
+        goals: ["fun_goal", "learning"],
+        future: false,
+        unexpected: true
+    },
+
+    {
+        title: "Design your dream room",
+        description: "Create a mood board for your dream room using colours, furniture, decorations, and layouts you love.",
+        interests: ["art", "creative", "fashion"],
+        moods: ["creative", "relax"],
+        energy: ["low", "medium"],
+        time: ["30min", "1hour", "afternoon"],
+        social: ["alone", "friends"],
+        location: ["home"],
+        cost: ["free"],
+        effort: ["low", "medium"],
+        goals: ["fun_goal", "creative", "relax_goal"],
+        future: false,
+        unexpected: false
+    },
+
+    {
+        title: "Create a mini documentary",
+        description: "Choose something interesting around you and make a short video telling its story.",
+        interests: ["photography", "creative", "technology", "writing"],
+        moods: ["creative", "productive"],
+        energy: ["medium", "high"],
+        time: ["1hour", "afternoon", "days"],
+        social: ["alone", "friends", "family"],
+        location: ["anywhere", "outside"],
+        cost: ["free"],
+        effort: ["medium", "high"],
+        goals: ["learning", "productive_goal", "future"],
+        future: true,
+        unexpected: true
     }
 
 ];
