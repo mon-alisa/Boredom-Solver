@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Boredom Solver</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff5fa;
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 70px 20px;
+        }
+
+        h1 {
+            font-size: 55px;
+            margin-bottom: 10px;
+            color: #d96b9b;
+        }
+
+        .tagline {
+            font-size: 22px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 15px;
+            background: #ffe0ed;
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #f6b8d1;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #result {
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        .restart {
+            background: #d96b9b;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>✨ Boredom Solver</h1>
+
+        <p class="tagline">
+            You're bored. Let's fix that.
+        </p>
+
+        <!-- QUESTION 1 -->
+        <div class="card" id="question1">
+
+            <h2>What kind of mood are you in?</h2>
+
+            <button onclick="nextQuestion('productive')">
+                🧠 I want to be productive
+            </button>
+
+            <button onclick="nextQuestion('creative')">
+                🎨 I want to be creative
+            </button>
+
+            <button onclick="nextQuestion('fun')">
+                🎮 I just want something fun
+            </button>
+
+            <button onclick="nextQuestion('social')">
+                👯 I want something social
+            </button>
+
+            <button onclick="nextQuestion('relax')">
+                😴 I want to relax
+            </button>
+
+        </div>
+
+
+        <!-- QUESTION 2 -->
+        <div class="card hidden" id="question2">
+
+            <h2>How much energy do you have?</h2>
+
+            <button onclick="showResult('high')">
+                ⚡ A LOT
+            </button>
+
+            <button onclick="showResult('medium')">
+                🙂 Some
+            </button>
+
+            <button onclick="showResult('low')">
+                🛋️ Very little
+            </button>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div class="card hidden" id="resultCard">
+
+            <h2>✨ Your Boredom Solver Result</h2>
+
+            <p id="result"></p>
+
+            <button class="restart" onclick="restart()">
+                🔄 Try Again
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let mood = "";
+
+        function nextQuestion(choice) {
+
+            mood = choice;
+
+            document.getElementById("question1").classList.add("hidden");
+
+            document.getElementById("question2").classList.remove("hidden");
+        }
+
+
+        function showResult(energy) {
+
+            document.getElementById("question2").classList.add("hidden");
+
+            document.getElementById("resultCard").classList.remove("hidden");
+
+            let result = "";
+
+            if (mood === "productive" && energy === "high") {
+
+                result = "🚀 Start a personal project! You could build a website, start a small business, learn a new skill, or work on something that could become an extracurricular.";
+
+            }
+
+            else if (mood === "productive" && energy === "medium") {
+
+                result = "📚 Learn something new! Try learning about investing, psychology, photography, coding, or another topic you've always wondered about.";
+
+            }
+
+            else if (mood === "productive" && energy === "low") {
+
+                result = "📝 Do a tiny productive task. Organize your photos, clean your desk, make a to-do list, or plan something you've been putting off.";
+
+            }
+
+            else if (mood === "creative") {
+
+                result = "🎨 Make something! Try photography, drawing, designing a website, making a mood board, writing a story, or creating something completely new.";
+
+            }
+
+            else if (mood === "fun") {
+
+                result = "🎮 Time for fun! Try a new game, make a playlist, watch a movie you've never seen, try a random internet challenge, or learn a weird skill.";
+
+            }
+
+            else if (mood === "social") {
+
+                result = "👯 Do something with someone! Call a friend, go shopping, grab food, play a game together, or plan a spontaneous outing.";
+
+            }
+
+            else if (mood === "relax") {
+
+                result = "🌸 You deserve a break. Read a book, listen to music, take a shower, watch your comfort show, journal, or simply do nothing for a while.";
+
+            }
+
+            document.getElementById("result").innerHTML = result;
+        }
+
+
+        function restart() {
+
+            document.getElementById("resultCard").classList.add("hidden");
+
+            document.getElementById("question1").classList.remove("hidden");
+
+            mood = "";
+        }
+
+    </script>
+
+</body>
+</html>
