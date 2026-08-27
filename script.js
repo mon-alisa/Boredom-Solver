@@ -1,7 +1,7 @@
-console.log("Boredom Solver loaded");
 const questions = [
 
     {
+        id: "mood",
         question: "What kind of mood are you in?",
         type: "single",
         options: [
@@ -14,6 +14,7 @@ const questions = [
     },
 
     {
+        id: "energy",
         question: "How much energy do you have?",
         type: "single",
         options: [
@@ -24,6 +25,7 @@ const questions = [
     },
 
     {
+        id: "time",
         question: "How much time do you have?",
         type: "single",
         options: [
@@ -36,16 +38,18 @@ const questions = [
     },
 
     {
-        question: "What sounds best?",
+        id: "location",
+        question: "Where do you want to do something?",
         type: "single",
         options: [
-            { text: "🏠 Something I can do at home", value: "home" },
+            { text: "🏠 At home", value: "home" },
             { text: "🌎 I want to get out", value: "outside" },
             { text: "🤷 I don't care", value: "anywhere" }
         ]
     },
 
     {
+        id: "social",
         question: "Who do you want to do it with?",
         type: "single",
         options: [
@@ -57,6 +61,7 @@ const questions = [
     },
 
     {
+        id: "cost",
         question: "Do you want to spend money?",
         type: "single",
         options: [
@@ -67,6 +72,7 @@ const questions = [
     },
 
     {
+        id: "interests",
         question: "What are you interested in?",
         type: "multiple",
         options: [
@@ -81,12 +87,14 @@ const questions = [
             { text: "🌎 Community", value: "community" },
             { text: "🍳 Food", value: "food" },
             { text: "🌱 Nature", value: "nature" },
+            { text: "🏃 Fitness", value: "fitness" },
             { text: "🎮 Gaming", value: "gaming" },
             { text: "🤷 I'm not sure", value: "anything" }
         ]
     },
 
     {
+        id: "goals",
         question: "What do you want to get out of this?",
         type: "multiple",
         options: [
@@ -101,6 +109,7 @@ const questions = [
     },
 
     {
+        id: "adventure",
         question: "How adventurous are you feeling?",
         type: "single",
         options: [
@@ -111,6 +120,7 @@ const questions = [
     },
 
     {
+        id: "effort",
         question: "How much effort do you want to put in?",
         type: "single",
         options: [
@@ -127,6 +137,12 @@ let currentQuestion = 0;
 
 let answers = {};
 
+let shownResults = [];
+
+
+/* -------------------------
+   START QUIZ
+------------------------- */
 
 function startQuiz() {
 
@@ -134,9 +150,15 @@ function startQuiz() {
 
     document.getElementById("quizSection").classList.remove("hidden");
 
+    document.getElementById("results").classList.add("hidden");
+
+    document.getElementById("questionCard").classList.remove("hidden");
+
     currentQuestion = 0;
 
     answers = {};
+
+    shownResults = [];
 
     showQuestion();
 
@@ -144,8 +166,13 @@ function startQuiz() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
+
+/* -------------------------
+   SHOW QUESTION
+------------------------- */
 
 function showQuestion() {
 
@@ -156,6 +183,7 @@ function showQuestion() {
 
     document.getElementById("questionText").textContent =
         question.question;
+
 
     const answersContainer =
         document.getElementById("answers");
@@ -172,13 +200,15 @@ function showQuestion() {
 
     question.options.forEach(option => {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
         button.className = "answer";
 
         button.textContent = option.text;
 
-        button.onclick = () => selectAnswer(option.value, button);
+        button.onclick =
+            () => selectAnswer(option.value, button);
 
         answersContainer.appendChild(button);
 
@@ -187,6 +217,10 @@ function showQuestion() {
 }
 
 
+/* -------------------------
+   ANSWER SELECTION
+------------------------- */
+
 function selectAnswer(value, button) {
 
     const question = questions[currentQuestion];
@@ -194,17 +228,15 @@ function selectAnswer(value, button) {
 
     if (question.type === "multiple") {
 
-        if (!answers[currentQuestion]) {
-
-            answers[currentQuestion] = [];
-
+        if (!answers[question.id]) {
+            answers[question.id] = [];
         }
 
 
-        if (answers[currentQuestion].includes(value)) {
+        if (answers[question.id].includes(value)) {
 
-            answers[currentQuestion] =
-                answers[currentQuestion].filter(
+            answers[question.id] =
+                answers[question.id].filter(
                     item => item !== value
                 );
 
@@ -212,7 +244,7 @@ function selectAnswer(value, button) {
 
         } else {
 
-            answers[currentQuestion].push(value);
+            answers[question.id].push(value);
 
             button.classList.add("selected");
 
@@ -223,7 +255,7 @@ function selectAnswer(value, button) {
 
     } else {
 
-        answers[currentQuestion] = value;
+        answers[question.id] = value;
 
         nextQuestion();
 
@@ -232,16 +264,20 @@ function selectAnswer(value, button) {
 }
 
 
+/* -------------------------
+   CONTINUE BUTTON
+------------------------- */
+
 function showContinueButton() {
 
-    let existingButton =
+    let existing =
         document.getElementById("continueButton");
 
+    if (existing) return;
 
-    if (existingButton) return;
 
-
-    const button = document.createElement("button");
+    const button =
+        document.createElement("button");
 
     button.id = "continueButton";
 
@@ -257,6 +293,10 @@ function showContinueButton() {
 
 }
 
+
+/* -------------------------
+   NEXT QUESTION
+------------------------- */
 
 function nextQuestion() {
 
@@ -283,35 +323,46 @@ function nextQuestion() {
 }
 
 
+/* -------------------------
+   MATCHING ENGINE
+------------------------- */
+
 function calculateScore(activity) {
 
     let score = 0;
 
-    let totalPossible = 0;
+    let possible = 0;
 
 
-    function check(answer, activityValues, points) {
+    function match(answer, values, weight) {
 
-        totalPossible += points;
+        possible += weight;
 
 
-        if (!answer) return;
+        if (!answer || !values) return;
 
 
         if (Array.isArray(answer)) {
 
-            if (
-                answer.some(item =>
-                    activityValues.includes(item)
-                )
-            ) {
-                score += points;
+            const matches =
+                answer.filter(item =>
+                    values.includes(item)
+                ).length;
+
+
+            if (matches > 0) {
+
+                score += weight *
+                    Math.min(matches / 2, 1);
+
             }
 
         } else {
 
-            if (activityValues.includes(answer)) {
-                score += points;
+            if (values.includes(answer)) {
+
+                score += weight;
+
             }
 
         }
@@ -319,41 +370,220 @@ function calculateScore(activity) {
     }
 
 
-    check(answers[0], activity.moods, 4);
+    /*
+        Interests are the strongest factor.
+    */
 
-    check(answers[1], activity.energy, 3);
+    match(
+        answers.interests,
+        activity.interests,
+        25
+    );
 
-    check(answers[2], activity.time, 3);
 
-    check(answers[3], activity.location, 2);
+    /*
+        Mood is very important.
+    */
 
-    check(answers[4], activity.social, 2);
+    match(
+        answers.mood,
+        activity.moods,
+        15
+    );
 
-    check(answers[5], activity.cost, 2);
 
-    check(answers[6], activity.interests, 5);
+    /*
+        Goals are also very important.
+    */
 
-    check(answers[7], activity.goals, 4);
+    match(
+        answers.goals,
+        activity.goals,
+        15
+    );
 
-    check(answers[9], activity.effort, 2);
 
+    match(
+        answers.energy,
+        activity.energy,
+        10
+    );
+
+
+    match(
+        answers.time,
+        activity.time,
+        10
+    );
+
+
+    match(
+        answers.location,
+        activity.location,
+        8
+    );
+
+
+    match(
+        answers.social,
+        activity.social,
+        7
+    );
+
+
+    match(
+        answers.cost,
+        activity.cost,
+        5
+    );
+
+
+    match(
+        answers.effort,
+        activity.effort,
+        5
+    );
+
+
+    /*
+        Future-oriented activities get
+        a bonus when the user wants
+        something useful for their future.
+    */
 
     if (
         activity.future &&
-        answers[7]?.includes("future")
+        answers.goals &&
+        (
+            answers.goals.includes("future") ||
+            answers.goals.includes("extracurricular")
+        )
     ) {
-        score += 3;
+
+        score += 5;
+
+        possible += 5;
+
     }
 
 
-    const percentage =
-        Math.round((score / totalPossible) * 100);
+    /*
+        Adventurous users get a small
+        bonus for unusual activities.
+    */
+
+    if (
+        answers.adventure === "adventurous" &&
+        activity.unexpected === true
+    ) {
+
+        score += 5;
+
+        possible += 5;
+
+    }
 
 
-    return Math.min(percentage, 99);
+    if (possible === 0) return 0;
+
+
+    return Math.round(
+        (score / possible) * 100
+    );
 
 }
 
+
+/* -------------------------
+   WHY THIS MATCHES
+------------------------- */
+
+function getMatchReason(activity) {
+
+    const reasons = [];
+
+
+    if (
+        answers.interests &&
+        answers.interests.some(
+            interest =>
+                activity.interests.includes(interest)
+        )
+    ) {
+
+        reasons.push(
+            "matches your interests"
+        );
+
+    }
+
+
+    if (
+        answers.mood &&
+        activity.moods.includes(answers.mood)
+    ) {
+
+        reasons.push(
+            "fits your current mood"
+        );
+
+    }
+
+
+    if (
+        answers.goals &&
+        answers.goals.some(
+            goal =>
+                activity.goals.includes(goal)
+        )
+    ) {
+
+        reasons.push(
+            "fits what you want to get out of your time"
+        );
+
+    }
+
+
+    if (
+        answers.time &&
+        activity.time.includes(answers.time)
+    ) {
+
+        reasons.push(
+            "fits the amount of time you have"
+        );
+
+    }
+
+
+    if (
+        answers.cost &&
+        activity.cost.includes(answers.cost)
+    ) {
+
+        reasons.push(
+            "fits your budget"
+        );
+
+    }
+
+
+    if (reasons.length === 0) {
+
+        return "This could be a fun option to try.";
+
+    }
+
+
+    return "This " + reasons.slice(0, 3).join(", ") + ".";
+
+}
+
+
+/* -------------------------
+   SHOW RESULTS
+------------------------- */
 
 function showResults() {
 
@@ -363,45 +593,64 @@ function showResults() {
     document.getElementById("results")
         .classList.remove("hidden");
 
-    const resultContent =
-        document.getElementById("resultContent");
 
-    resultContent.innerHTML = "";
+    if (
+        typeof activities === "undefined" ||
+        activities.length === 0
+    ) {
 
-
-    // Make sure our activity database exists
-    if (typeof activities === "undefined" || activities.length === 0) {
-
-        resultContent.innerHTML = `
+        document.getElementById("resultContent").innerHTML = `
             <div class="result-card">
-                <h3>⚠️ Something went wrong</h3>
+                <h3>Something went wrong</h3>
                 <p>
-                    Boredom Solver couldn't load the activity database.
-                    Please refresh the page and try again.
+                    We couldn't load the activity database.
+                    Please refresh the page.
                 </p>
             </div>
         `;
 
         return;
+
     }
 
 
-    // Calculate a score for every activity
-    const rankedActivities = activities
-        .map(activity => {
-
-            return {
+    const ranked =
+        activities
+            .map(activity => ({
                 ...activity,
                 score: calculateScore(activity)
-            };
-
-        })
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 5);
+            }))
+            .sort((a, b) => b.score - a.score);
 
 
-    // Create the result cards
-    rankedActivities.forEach((activity, index) => {
+    shownResults =
+        ranked.slice(0, 5);
+
+
+    renderResults(shownResults);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* -------------------------
+   RENDER RESULTS
+------------------------- */
+
+function renderResults(results) {
+
+    const container =
+        document.getElementById("resultContent");
+
+    container.innerHTML = "";
+
+
+    results.forEach((activity, index) => {
 
         const card =
             document.createElement("div");
@@ -412,16 +661,14 @@ function showResults() {
         const tags =
             activity.interests
                 .slice(0, 4)
-                .map(tag => {
-
-                    return `
-                        <span class="tag">
-                            ${tag}
-                        </span>
-                    `;
-
-                })
+                .map(tag =>
+                    `<span class="tag">${tag}</span>`
+                )
                 .join("");
+
+
+        const reason =
+            getMatchReason(activity);
 
 
         card.innerHTML = `
@@ -438,6 +685,11 @@ function showResults() {
                 ${activity.description}
             </p>
 
+            <p>
+                <strong>Why this matches:</strong>
+                ${reason}
+            </p>
+
             <div class="tags">
                 ${tags}
             </div>
@@ -445,24 +697,68 @@ function showResults() {
         `;
 
 
-        resultContent.appendChild(card);
+        container.appendChild(card);
 
-    });
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
     });
 
 }
 
+
+/* -------------------------
+   ANOTHER IDEA
+------------------------- */
+
+function anotherIdea() {
+
+    const remaining =
+        activities
+            .map(activity => ({
+                ...activity,
+                score: calculateScore(activity)
+            }))
+            .sort((a, b) => b.score - a.score)
+            .filter(
+                activity =>
+                    !shownResults.some(
+                        shown =>
+                            shown.title === activity.title
+                    )
+            );
+
+
+    if (remaining.length === 0) {
+
+        alert(
+            "You've seen all of your best matches!"
+        );
+
+        return;
+
+    }
+
+
+    const next =
+        remaining.slice(0, 1);
+
+
+    shownResults.push(next[0]);
+
+    renderResults([next[0]]);
+
+}
+
+
+/* -------------------------
+   RESTART
+------------------------- */
 
 function restart() {
 
     currentQuestion = 0;
 
     answers = {};
+
+    shownResults = [];
 
 
     document.getElementById("results")
