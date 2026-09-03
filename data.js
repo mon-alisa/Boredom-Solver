@@ -418,7 +418,7 @@ const activities = [
         costLabel: "Free",
         socialLabel: "Solo or with others",
         difficulty: "Easy"
-    }
+    },
 
     {
         title: "Design a Fake Magazine Cover",
