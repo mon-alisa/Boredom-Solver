@@ -731,28 +731,6 @@ function renderResults(results) {
 
 `;
 
-            <div class="match">
-                ${activity.score}% MATCH
-            </div>
-
-            <h3>
-                ${index + 1}. ${activity.title}
-            </h3>
-
-            <p>
-                ${activity.description}
-            </p>
-
-            <p>
-                <strong>Why this matches:</strong>
-                ${reason}
-            </p>
-
-            <div class="tags">
-                ${tags}
-            </div>
-
-        `;
 
 
         container.appendChild(card);
